@@ -1,6 +1,42 @@
 body {
   background: #210e09;
+  padding: 30px 0;
+  color: #fff;
 }
-.container {
-  /* background: #210e09; */
+
+a,
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-item a {
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #fff;
+}
+
+.logo img {
+  width: 157px;
+  height: 40px;
+}
+
+.shield-btn {
+  padding: 17px 30px;
+  background: transparent;
+  border: 3px solid #d5621d;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: 0.4s ease;
+}
+
+.shield-btn:hover {
+  background: #fff;
+  color: #d5621d;
+  border: 3px solid #fff;
+  cursor: pointer;
 }
