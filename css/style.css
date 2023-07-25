@@ -92,7 +92,7 @@ a, .nav-link {
 .kitchen__menu_item__annotation p {
     font-size: 14px;
     color: #D5621D;
-    max-width: 350px;
+    width: 350px
 }
 
 .footer .line {
