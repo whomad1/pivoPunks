@@ -4,7 +4,7 @@ const DATABEER = [];
 const randomBeer = document.querySelector(".random__beer");
 const beerDetailsClass = document.querySelector(".beer__details");
 const beerNameClass = document.querySelector(".beer__name");
-
+const mainPageRedirectButton = document.querySelector(".main_page_redirect_btn")
 
 function setDataBeer(data) {
   for (let beer in data) {
@@ -32,16 +32,23 @@ function renderSingleBeer() {
               </div>
           </div>
       `;
-    console.log(beerName);
   beerNameClass.innerHTML = beerName;
   beerDetailsClass.innerHTML = beerElem;
 }
 
 (async () => {
     try {
-      const data = await fetch("https://api.punkapi.com/v2/beers/random");
+      let urlString = window.location.href;
+      let url = new URL(urlString);
+      let id = url.searchParams.get("id");
+      let data;
+      if (id !== undefined) {
+        data = await fetch(`https://api.punkapi.com/v2/beers/${id}`)
+      }
+      else {
+        data = await fetch("https://api.punkapi.com/v2/beers/random");
+      }
       const databeers = await data.json();
-      console.log(databeers);
       setDataBeer(databeers);
       if (DATABEER.length)  {
         renderSingleBeer();
@@ -49,4 +56,8 @@ function renderSingleBeer() {
     } catch (err) {
       console.error(err);
     }
-  })(); 
+  }) (); 
+
+  mainPageRedirectButton.onclick = () => {
+    window.location.href = 'index.html';
+  }

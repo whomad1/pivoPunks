@@ -115,3 +115,11 @@ a,
   align-items: center;
   font-size: 14px;
 }
+
+
+.random__beer_item img {
+  max-width: 50em;
+  max-height: 50em;
+  margin-right: 15px;
+  border-radius: 3px;
+}
