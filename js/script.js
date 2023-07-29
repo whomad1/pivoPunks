@@ -7,8 +7,10 @@ const beerName = document.querySelector(".beer__name");
 const prevBtn = document.querySelector(".btn-prev");
 const nextBtn = document.querySelector(".btn-next");
 const pageNumber = document.querySelector(".pagination__numbers");
+const per_page_el = document.querySelector("#per_page");
+let per_page = 5;
 let readMore;
-const per_page = 5;
+// const per_page = 5;
 let page = 1;
 
 prevBtn.onclick = async () => {
@@ -37,6 +39,10 @@ randomBeer.onclick = () => {
   }
 };
 
+per_page_el.addEventListener('change', () => {
+  per_page = per_page_el.value;
+  getAllBeer(page, per_page)
+})
 
 async function getAllBeer(page = 1, per_page = 5) {
   try {
@@ -46,7 +52,7 @@ async function getAllBeer(page = 1, per_page = 5) {
     } else {
       prevBtn.disabled = false;
     }
-    pageNumber.innerHTML = `${page}`;
+    pageNumber.innerHTML = `Страница: ${page}`;
     kitchenMenu.innerHTML = "";
     const databeers = await data.json();
     setDataBeer(null);
@@ -110,10 +116,3 @@ async function renderMenu() {
 }
 
 getAllBeer(page, per_page);
-
-
-
-
-
-
-
