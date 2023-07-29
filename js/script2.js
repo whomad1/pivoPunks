@@ -61,3 +61,5 @@ function renderSingleBeer() {
   mainPageRedirectButton.onclick = () => {
     window.location.href = 'index.html';
   }
+
+  

@@ -4,18 +4,68 @@ const kitchenMenu = document.querySelector(".kitchen__menu");
 const randomBeer = document.querySelector(".random__beer");
 const beer = document.querySelector(".single__beer_details");
 const beerName = document.querySelector(".beer__name");
+const prevBtn = document.querySelector(".btn-prev");
+const nextBtn = document.querySelector(".btn-next");
+const pageNumber = document.querySelector(".pagination__numbers");
+const per_page_el = document.querySelector("#per_page");
+let per_page = 5;
 let readMore;
+// const per_page = 5;
+let page = 1;
 
-async function getAllBeer() {
+prevBtn.onclick = async () => {
   try {
-    const data = await fetch("https://api.punkapi.com/v2/beers");
+    page -= 1;
+    getAllBeer(page, per_page);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+nextBtn.onclick = async () => {
+  try {
+    page +=1;
+    getAllBeer(page, per_page);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+randomBeer.onclick = () => {
+  try {
+    window.location.href = "singleBeer.html"
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+per_page_el.addEventListener('change', () => {
+  per_page = per_page_el.value;
+  getAllBeer(page, per_page)
+})
+
+async function getAllBeer(page = 1, per_page = 5) {
+  try {
+    const data = await fetch(`https://api.punkapi.com/v2/beers?page=${page}&per_page=${per_page}`);
+    if (page <= 1) {
+      prevBtn.disabled = true;
+    } else {
+      prevBtn.disabled = false;
+    }
+    pageNumber.innerHTML = `Страница: ${page}`;
+    kitchenMenu.innerHTML = "";
     const databeers = await data.json();
-    // console.log(databeers);
+    setDataBeer(null);
     setDataBeer(databeers);
     if (DATABEER.length) {
       renderMenu().then(
         () => {
           readMore = document.querySelectorAll(".read__more");
+          Array.from(readMore).forEach(link => {
+            link.addEventListener('click', (event) => {
+              window.location.href = `singleBeer.html?id=${link.dataset.id}`
+            })
+          })
         }
       )
     }
@@ -25,6 +75,9 @@ async function getAllBeer() {
 }
 
 function setDataBeer(data) {
+  while (DATABEER.length) {
+    DATABEER.pop();
+  }
   for (let beer in data) {
     const obj = {
       id: data[beer]['id'],
@@ -62,25 +115,4 @@ async function renderMenu() {
   }
 }
 
-getAllBeer().then(() => {
-  // console.log(readMore)
-  Array.from(readMore).forEach(link => {
-    link.addEventListener('click', (event) => {
-      window.location.href = `singleBeer.html?id=${link.dataset.id}`
-    })
-  })
-});
-
-
-randomBeer.onclick = () => {
-  try {
-    window.location.href = "singleBeer.html"
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-
-
-
-
+getAllBeer(page, per_page);
