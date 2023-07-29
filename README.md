@@ -2,6 +2,9 @@
 
 TODO:
 
-- [ ] Fetch random beer and redirect to a new page
-- [ ] make the layout of a random page with getting a beer
-- [ ] Paginated beer menu
+
+- [X] Fetch random beer and redirect to a new page
+- [ ] Stylize the main page buttons
+- [ ] Stylize the random beer page
+- [X] Paginated beer menu
+
