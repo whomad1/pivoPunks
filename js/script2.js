@@ -41,14 +41,10 @@ function renderSingleBeer() {
       let urlString = window.location.href;
       let url = new URL(urlString);
       let id = url.searchParams.get("id");
-      let data;
-      if (!id) {
-        data = await fetch("https://api.punkapi.com/v2/beers/random");
-      }
-      else {
-        data = await fetch(`https://api.punkapi.com/v2/beers/${id}`);
-      }
+      let data = await fetch(`https://api.punkapi.com/v2/beers/${id ?? 'random'}`);
       const databeers = await data.json();
+
+      
       setDataBeer(databeers);
       if (DATABEER.length)  {
         renderSingleBeer();
